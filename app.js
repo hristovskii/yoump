@@ -26,7 +26,16 @@ app.get("/", (req, res) => {
 });
 
 app.post("/convert-mp3", async (req, res) => {
-  const videoId = req.body.videoId;
+
+
+  const url = req.body.videoId;
+  // given a full URL, takes the video ID from it
+  // works on single video and video in a playlist (diffrent URLs) 
+  const regex = /(?<=v=)[^&]+/; 
+
+  const videoId = url.match(regex);;
+
+
   if (videoId === undefined || videoId === "" || videoId === null) {
     return res.render("index", {
       success: false,
